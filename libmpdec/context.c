@@ -25,7 +25,9 @@
  */
 
 
+#ifndef MPDECIMAL_ENABLE_SGX
 #include <signal.h>
+#endif //MPDECIMAL_ENABLE_SGX
 #include <stdio.h>
 #include <string.h>
 
@@ -36,10 +38,21 @@ void
 mpd_dflt_traphandler(mpd_context_t *ctx)
 {
     (void)ctx;
+#ifndef MPDECIMAL_ENABLE_SGX
     raise(SIGFPE);
+#endif //MPDECIMAL_ENABLE_SGX
 }
 
 void (* mpd_traphandler)(mpd_context_t *) = mpd_dflt_traphandler;
+
+#ifdef MPDECIMAL_ENABLE_SGX
+
+void
+mpd_dflt_custom_printf(const char *msg) {}
+
+void (* mpd_custom_printf)(const char *msg) = mpd_dflt_custom_printf;
+
+#endif //MPDECIMAL_ENABLE_SGX
 
 
 /* Set guaranteed minimum number of coefficient words. The function may

@@ -29,7 +29,9 @@
 #include <ctype.h>
 #include <errno.h>
 #include <limits.h>
+#ifndef MPDECIMAL_ENABLE_SGX
 #include <locale.h>
+#endif //MPDECIMAL_ENABLE_SGX
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -889,6 +891,7 @@ mpd_parse_fmt_str(mpd_spec_t *spec, const char *fmt, int caps)
         spec->type = *cp++;
     }
     else if (*cp == 'N' || *cp == 'n') {
+#ifndef MPDECIMAL_ENABLE_SGX
         /* locale specific conversion */
         struct lconv *lc;
         /* separator has already been specified */
@@ -904,6 +907,9 @@ mpd_parse_fmt_str(mpd_spec_t *spec, const char *fmt, int caps)
         if (mpd_validate_lconv(spec) < 0) {
             return 0; /* GCOV_NOT_REACHED */
         }
+#else
+        return 0; /* Error: Locale specific conversion is not supported in SGX TEE. */
+#endif //MPDECIMAL_ENABLE_SGX
     }
 
     /* check correctness */
@@ -1578,6 +1584,7 @@ mpd_lsnprint_signals(char *dest, int nmemb, uint32_t flags, const char *signal_s
     return (int)(cp-dest); /* strlen, without NUL terminator */
 }
 
+#ifndef MPDECIMAL_ENABLE_SGX
 /* The following two functions are mainly intended for debugging. */
 void
 mpd_fprint(FILE *file, const mpd_t *dec)
@@ -1608,3 +1615,4 @@ mpd_print(const mpd_t *dec)
         fputs("mpd_fprint: output error\n", stderr); /* GCOV_NOT_REACHED */
     }
 }
+#endif //MPDECIMAL_ENABLE_SGX
