@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(DecimalSGX "C" "CXX")
+project(mpdecimal_SGX "C" "CXX")
 set(PROJECT_VERSION 4.0.0)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")

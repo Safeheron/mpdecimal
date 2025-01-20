@@ -42,5 +42,5 @@ install(
 ## Install header file
 install(
         FILES ${CMAKE_SOURCE_DIR}/libmpdec/mpdecimal.h
-        DESTINATION include/libmpdec/
+        DESTINATION include/mpdecimal/
 )
