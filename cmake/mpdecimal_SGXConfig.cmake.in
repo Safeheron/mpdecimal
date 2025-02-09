@@ -9,10 +9,6 @@ get_filename_component (_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_DIR}/../../../" AB
 set_and_check(mpdecimal_SGX_INCLUDE_DIR  "${_INSTALL_PREFIX}/include")
 set_and_check(mpdecimal_SGX_INCLUDE_DIRS "${_INSTALL_PREFIX}/include")
 set_and_check(mpdecimal_SGX_LIBRARY_DIR "${_INSTALL_PREFIX}/lib")
-
-MESSAGE(STATUS "###################################")
-
-MESSAGE(STATUS "The package is mpdecimal_SGX, and the platform is SGX.")
 set_and_check(mpdecimal_SGX_LIBRARY "${_INSTALL_PREFIX}/lib/libmpdecimal_SGX.a")
 
-MESSAGE(STATUS "###################################")
+MESSAGE(STATUS "Found mpdecimal_SGX.")
